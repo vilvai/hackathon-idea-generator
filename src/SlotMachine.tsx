@@ -8,8 +8,9 @@ import Reel from "./Reel";
 
 const MachineBody = styled.div`
   background-color: #ef476f;
-  padding: 50px 30px 80px 30px;
+  padding: 24px 30px 80px 30px;
   border-radius: 24px 24px 8px 8px;
+  box-shadow: 0px 8px 12px 0px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
 `;
@@ -20,8 +21,9 @@ const ReelArea = styled.div`
 
 const Title = styled.span`
   font-family: "Yanone Kaffeesatz", sans-serif;
-  font-size: 16pt;
-  color: #1d3557;
+  padding-bottom: 8px;
+  font-size: 24pt;
+  color: #fff;
   font-weight: bolder;
   margin-left: 8px;
 `;

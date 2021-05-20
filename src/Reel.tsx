@@ -69,7 +69,7 @@ const Slot = styled.div.attrs<SlotProps>(({ rotation }) => ({
   top: ${(SLOT_AREA_HEIGHT - SLOT_HEIGHT) / 2}px;
   height: ${SLOT_HEIGHT}px;
   width: ${SLOT_WIDTH}px;
-  border: 1px solid #14213d;
+  border: 1px solid #cfb0bb;
   border-radius: 6px;
   display: flex;
   text-align: center;
