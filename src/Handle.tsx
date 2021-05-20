@@ -54,6 +54,7 @@ const Handle = ({ onStart, disabled }: Props) => {
   }, [containerRef]);
 
   const handleMouseDown = () => {
+    if (disabled) return;
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", () => {
       if (positionRef.current >= HANDLE_HEIGHT) onStart();
