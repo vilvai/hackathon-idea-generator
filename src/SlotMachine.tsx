@@ -54,7 +54,7 @@ export default class SlotMachine extends React.Component<{}, State> {
       {
         reelData: this.state.reelData.map((data, i) => ({
           ...data,
-          speed: 25 + i * 2,
+          speed: 24 + i * 2 + Math.random(),
         })),
       },
       this.update
