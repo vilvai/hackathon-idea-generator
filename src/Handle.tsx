@@ -1,32 +1,56 @@
 import React from "react";
 import styled from "styled-components";
 
-const HANDLE_HEIGHT = 200;
+const HANDLE_HEIGHT = 280;
 const HANDLE_WIDTH = 10;
-/*
-const HANDLE_HOLE_HEIGHT = 100;
-const HANDLE_HOLE_WIDTH = 20;
-*/
+
+const HANDLE_HOLE_HEIGHT = 150;
+const HANDLE_HOLE_WIDTH = 16;
+
 const HANDLE_HEAD_SIZE = 30;
 
 const Container = styled.div`
   width: ${HANDLE_WIDTH}px;
   height: ${HANDLE_HEIGHT}px;
   border-radius: ${HANDLE_WIDTH / 2}px;
-  background-color: black;
   margin-left: 24px;
   position: relative;
 `;
-/*
+
 const HandleHole = styled.div`
-  width: ${HANDLE_WIDTH}px;
-  height: ${HANDLE_HEIGHT}px;
-  border-radius: ${HANDLE_WIDTH / 2}px;
-  background-color: black;
-  top: ${(HANDLE_HEIGHT - HANDLE_HOLE_HEIGHT) / 2}
+  width: ${HANDLE_HOLE_WIDTH}px;
+  height: ${HANDLE_HOLE_HEIGHT}px;
+  border-radius: ${HANDLE_HOLE_WIDTH / 2}px;
+  background-color: #333333;
+  top: ${(HANDLE_HEIGHT - HANDLE_HOLE_HEIGHT) / 2}px;
+  left: ${(HANDLE_WIDTH - HANDLE_HOLE_WIDTH) / 2}px;
   position: absolute;
 `;
-*/
+
+interface HandleBarProps {
+  position: number;
+}
+
+const HandleBar = styled.div.attrs<HandleBarProps>(({ position }) => {
+  const handleMoveArea = HANDLE_HOLE_HEIGHT - 14;
+  const startPosition = position;
+  const endPosition =
+    (HANDLE_HEIGHT - handleMoveArea) / 2 +
+    (position * handleMoveArea) / HANDLE_HEIGHT;
+  return {
+    style: {
+      top: Math.min(startPosition, endPosition) - HANDLE_WIDTH / 2,
+      height: Math.abs(endPosition - startPosition),
+    },
+  };
+})<HandleBarProps>`
+  width: 0px;
+  border: ${HANDLE_WIDTH / 2}px solid #a07f5d;
+  border-radius: ${HANDLE_WIDTH / 2}px;
+  position: absolute;
+  left: 0px;
+`;
+
 interface HandleHeadProps {
   position: number;
 }
@@ -87,6 +111,8 @@ const Handle = ({ onStart, disabled }: Props) => {
 
   return (
     <Container ref={containerRef}>
+      <HandleHole />
+      <HandleBar position={position} />
       <HandleHead position={position} onMouseDown={handleMouseDown} />
     </Container>
   );
