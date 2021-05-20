@@ -1,28 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import { REEL_SLOTS } from "./constants";
 import Handle from "./Handle";
 
 import Reel from "./Reel";
 
 const ReelArea = styled.div`
-  border: 1px solid black;
+  background-color: #cec5b9;
+  padding: 16px;
   display: flex;
 `;
 
 interface State {
-  reelData: Array<{ position: number; slots: string[]; speed: number }>;
+  reelData: Array<{ rotation: number; slots: string[]; speed: number }>;
 }
 
 const ideas: string[][] = [
-  ["A scalable", "A zero-down-time", "A simple", "A scalable ", "A zero-down-time ", "A simple "],
-  ["todo", "random idea", "video", "retail", "todo ", "random idea "],
-  ["app", "generator", "game", "machine learning model", "app ", "generator "],
-  ["using react", "with Go language", "that uses ffmpeg", "using react ", "with Go language ", "that uses ffmpeg"],
+  ["A scalable", "A zero-down-time", "A simple"],
+  ["todo", "random idea", "video", "retail"],
+  ["app", "generator", "game", "machine learning model"],
+  ["using react", "with Go language", "that uses ffmpeg"],
 ];
 
 export default class SlotMachine extends React.Component<{}, State> {
   state = {
-    reelData: ideas.map((idea) => ({ position: 0, slots: idea, speed: 0 })),
+    reelData: ideas.map((idea) => ({ rotation: 0, slots: idea, speed: 0 })),
   };
 
   startSlotMachine = () => {
@@ -40,11 +42,26 @@ export default class SlotMachine extends React.Component<{}, State> {
   update() {
     const { reelData } = this.state;
     this.setState({
-      reelData: reelData.map((data) => ({
-        ...data,
-        position: data.position + data.speed,
-        speed: Math.max(0, data.speed - 0.1),
-      })),
+      reelData: reelData.map((data) => {
+        let { speed, rotation } = data;
+
+        const rotationModulo = rotation % (360 / REEL_SLOTS);
+
+        if (speed < 1) {
+          if (rotationModulo > -4) {
+            rotation = rotation - rotationModulo;
+            speed = 0;
+          } else {
+            speed += 0.09;
+          }
+        }
+
+        return {
+          ...data,
+          rotation: rotation - speed,
+          speed: Math.max(0, speed - 0.1),
+        };
+      }),
     });
 
     if (this.isRunning) {
@@ -62,8 +79,8 @@ export default class SlotMachine extends React.Component<{}, State> {
     return (
       <>
         <ReelArea>
-          {reelData.map(({ position, slots }, i) => (
-            <Reel key={i} position={position} slots={slots} />
+          {reelData.map(({ rotation, slots }, i) => (
+            <Reel key={i} rotation={rotation} slots={slots} />
           ))}
         </ReelArea>
         <Handle onStart={this.startSlotMachine} disabled={this.isRunning} />

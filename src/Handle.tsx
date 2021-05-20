@@ -2,8 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const HANDLE_HEIGHT = 200;
-const HANDLE_WIDTH = 12;
-
+const HANDLE_WIDTH = 10;
+/*
+const HANDLE_HOLE_HEIGHT = 100;
+const HANDLE_HOLE_WIDTH = 20;
+*/
 const HANDLE_HEAD_SIZE = 30;
 
 const Container = styled.div`
@@ -14,7 +17,16 @@ const Container = styled.div`
   margin-left: 24px;
   position: relative;
 `;
-
+/*
+const HandleHole = styled.div`
+  width: ${HANDLE_WIDTH}px;
+  height: ${HANDLE_HEIGHT}px;
+  border-radius: ${HANDLE_WIDTH / 2}px;
+  background-color: black;
+  top: ${(HANDLE_HEIGHT - HANDLE_HOLE_HEIGHT) / 2}
+  position: absolute;
+`;
+*/
 interface HandleHeadProps {
   position: number;
 }
@@ -27,7 +39,11 @@ const HandleHead = styled.div.attrs<HandleHeadProps>(({ position }) => ({
   width: ${HANDLE_HEAD_SIZE}px;
   height: ${HANDLE_HEAD_SIZE}px;
   border-radius: ${HANDLE_HEAD_SIZE / 2}px;
-  background-color: red;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 0, 1) 20%,
+    rgba(107, 0, 0, 1) 100%
+  );
   position: absolute;
   left: -${(HANDLE_HEAD_SIZE - HANDLE_WIDTH) / 2}px;
 `;
