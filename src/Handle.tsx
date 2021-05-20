@@ -32,13 +32,13 @@ interface Props {
 }
 
 const Handle = ({ onStart, disabled }: Props) => {
-  const [position, setPosition] = React.useState(0);
+  //const [position, setPosition] = React.useState(0);
 
   //const onMouseMove = (e) => {};
 
   return (
     <Container onClick={disabled ? undefined : onStart}>
-      <HandleHead position={position} />
+      <HandleHead position={0} />
     </Container>
   );
 };
