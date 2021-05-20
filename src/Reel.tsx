@@ -13,20 +13,24 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: ${SLOT_WIDTH}px;
-  height: ${SLOT_HEIGHT * 2.5}px;
-  overflow: hidden;
+  height: ${SLOT_HEIGHT * 2}px;
+  // overflow: hidden;
   position: relative;
+  transform-style: preserve-3d;
+  perspective: 1600px;
 `;
 
 interface SlotProps {
-  position: number;
+  rotation: number;
+  tz: number;
 }
 
-const Slot = styled.div.attrs<SlotProps>(({ position }) => ({
+const Slot = styled.div.attrs<SlotProps>(({ rotation, tz }) => ({
   style: {
-    top: position,
+    transform: `rotateX(${rotation + "deg"}) translateZ(${tz}px)`,
   },
 }))<SlotProps>`
+  top: ${SLOT_HEIGHT / 2}px;
   height: ${SLOT_HEIGHT}px;
   width: ${SLOT_WIDTH}px;
   border: 1px solid red;
@@ -40,19 +44,11 @@ const Slot = styled.div.attrs<SlotProps>(({ position }) => ({
 `;
 
 const Reel = ({ position, slots }: Props) => {
-  const actualPosition = position % (slots.length * SLOT_HEIGHT);
+  var tz = Math.round( ( SLOT_HEIGHT / 2 ) /  Math.tan( Math.PI / slots.length ) );
   return (
     <Container>
       {slots.map((slot, i) => (
-        <Slot
-          key={slot}
-          position={(i - slots.length) * SLOT_HEIGHT + actualPosition}
-        >
-          {slot}
-        </Slot>
-      ))}
-      {slots.map((slot, i) => (
-        <Slot key={slot} position={i * SLOT_HEIGHT + actualPosition}>
+        <Slot key={slot} tz={tz} rotation={position * (i + 1) % 360}>
           {slot}
         </Slot>
       ))}

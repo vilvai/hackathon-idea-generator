@@ -14,10 +14,10 @@ interface State {
 }
 
 const ideas: string[][] = [
-  ["A scalable", "A zero-down-time", "A simple"],
-  ["todo", "random idea", "video", "retail"],
-  ["app", "generator", "game", "machine learning model"],
-  ["using react", "with Go language", "that uses ffmpeg"],
+  ["A scalable", "A zero-down-time", "A simple", "A scalable ", "A zero-down-time ", "A simple "],
+  ["todo", "random idea", "video", "retail", "todo ", "random idea "],
+  ["app", "generator", "game", "machine learning model", "app ", "generator "],
+  ["using react", "with Go language", "that uses ffmpeg", "using react ", "with Go language ", "that uses ffmpeg"],
 ];
 
 export default class SlotMachine extends React.Component<{}, State> {
