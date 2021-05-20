@@ -17,7 +17,7 @@ const Container = styled.div`
 const Title = styled.span`
   font-family: "Yanone Kaffeesatz", sans-serif;
   font-size: 56pt;
-  margin-bottom: 30px;
+  margin-top: 40px;
   color: #1d3557;
   font-weight: bolder;
 `;
@@ -25,6 +25,7 @@ const Title = styled.span`
 const App = () => (
   <Container>
     <SlotMachine />
+    <Title>Pull the lever!</Title>
   </Container>
 );
 
