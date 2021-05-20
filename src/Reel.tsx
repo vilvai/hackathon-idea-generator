@@ -55,14 +55,12 @@ interface SlotProps {
   rotation: number;
 }
 
-const Slot = styled.div.attrs<SlotProps>(({ rotation }) => {
-  return {
-    style: {
-      transform: `rotateX(${rotation + "deg"}) translateZ(${REEL_SIZE}px)`,
-      visibility: rotation > -90 || rotation < -270 ? "visible" : "hidden",
-    },
-  };
-})<SlotProps>`
+const Slot = styled.div.attrs<SlotProps>(({ rotation }) => ({
+  style: {
+    transform: `rotateX(${rotation + "deg"}) translateZ(${REEL_SIZE}px)`,
+    visibility: rotation < 90 && rotation > -90 ? "visible" : "hidden",
+  },
+}))<SlotProps>`
   top: ${(SLOT_AREA_HEIGHT - SLOT_HEIGHT) / 2}px;
   height: ${SLOT_HEIGHT}px;
   width: ${SLOT_WIDTH}px;

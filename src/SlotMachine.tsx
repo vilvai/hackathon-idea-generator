@@ -16,10 +16,32 @@ interface State {
 }
 
 const ideas: string[][] = [
-  ["A scalable", "A zero-down-time", "A simple"],
-  ["todo", "random idea", "video", "retail"],
+  [
+    "A scalable",
+    "A zero-down-time",
+    "A simple",
+    "A brute-force",
+    "A randomized",
+    "Smart",
+    "A responsive",
+  ],
+  [
+    "todo",
+    "random idea",
+    "video",
+    "retail",
+    "calculator",
+    "storage",
+    "automated ads",
+  ],
   ["app", "generator", "game", "machine learning model"],
-  ["using react", "with Go language", "that uses ffmpeg"],
+  [
+    "using react",
+    "with Go language",
+    "that uses ffmpeg",
+    "that's integrated to warren",
+    "connected to Facebook",
+  ],
 ];
 
 export default class SlotMachine extends React.Component<{}, State> {
@@ -59,6 +81,7 @@ export default class SlotMachine extends React.Component<{}, State> {
         return {
           ...data,
           rotation: rotation - speed,
+          //rotation: rotation - 1,
           speed: Math.max(0, speed - 0.1),
         };
       }),
