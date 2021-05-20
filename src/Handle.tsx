@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
+const HANDLE_HEIGHT = 200;
+const HANDLE_WIDTH = 12;
+
+const HANDLE_HEAD_SIZE = 30;
+
 const Container = styled.div`
-  width: 10px;
-  height: 200px;
-  border-radius: 5px;
+  width: ${HANDLE_WIDTH}px;
+  height: ${HANDLE_HEIGHT}px;
+  border-radius: ${HANDLE_WIDTH / 2}px;
   background-color: black;
-  margin-left: 16px;
+  margin-left: 24px;
   position: relative;
 `;
 
@@ -16,14 +21,15 @@ interface HandleHeadProps {
 
 const HandleHead = styled.div.attrs<HandleHeadProps>(({ position }) => ({
   style: {
-    top: position,
+    top: position - HANDLE_HEAD_SIZE / 2,
   },
 }))<HandleHeadProps>`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: ${HANDLE_HEAD_SIZE}px;
+  height: ${HANDLE_HEAD_SIZE}px;
+  border-radius: ${HANDLE_HEAD_SIZE / 2}px;
   background-color: red;
   position: absolute;
+  left: -${(HANDLE_HEAD_SIZE - HANDLE_WIDTH) / 2}px;
 `;
 
 interface Props {
@@ -32,13 +38,39 @@ interface Props {
 }
 
 const Handle = ({ onStart, disabled }: Props) => {
-  //const [position, setPosition] = React.useState(0);
+  const [position, _setPosition] = React.useState(0);
+  const positionRef = React.useRef(position);
+  const setPosition = (value: number) => {
+    positionRef.current = value;
+    _setPosition(value);
+  };
+  const [handleElementPosition, setHandleElementPosition] = React.useState(0);
+  const containerRef = React.createRef<HTMLDivElement>();
 
-  //const onMouseMove = (e) => {};
+  React.useEffect(() => {
+    const boundingClientRect = containerRef.current?.getBoundingClientRect();
+    if (!boundingClientRect) return;
+    setHandleElementPosition(boundingClientRect.top);
+  }, [containerRef]);
+
+  const handleMouseDown = () => {
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", () => {
+      if (positionRef.current >= HANDLE_HEIGHT) onStart();
+      setPosition(0);
+      document.removeEventListener("mousemove", handleMouseMove);
+    });
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    const position = e.pageY - handleElementPosition;
+    const cappedPosition = Math.min(HANDLE_HEIGHT, Math.max(position, 0));
+    setPosition(cappedPosition);
+  };
 
   return (
-    <Container onClick={disabled ? undefined : onStart}>
-      <HandleHead position={0} />
+    <Container ref={containerRef}>
+      <HandleHead position={position} onMouseDown={handleMouseDown} />
     </Container>
   );
 };
