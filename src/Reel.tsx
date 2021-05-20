@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { SlotMachineColors } from "./colors";
 import { REEL_SLOTS } from "./constants";
 
 interface Props {
@@ -35,19 +36,23 @@ const Shadow = styled.div`
 
 const TopShadow = styled(Shadow)`
   background: linear-gradient(
-    0deg,
-    rgba(60, 60, 60, 0) 0%,
-    rgba(60, 60, 60, 0.9) 100%
+    180deg,
+    hsla(323, 46%, 30%, 0.8) 0%,
+    hsla(323, 67%, 31%, 0) 100%
   );
+
+  border-radius: 6px 6px 0 0;
   top: 24px;
 `;
 
 const BottomShadow = styled(Shadow)`
   background: linear-gradient(
     0deg,
-    rgba(60, 60, 60, 0.9) 0%,
-    rgba(60, 60, 60, 0) 100%
+    hsla(323, 46%, 30%, 0.8) 0%,
+    hsla(323, 67%, 31%, 0) 100%
   );
+
+  border-radius: 0 0 6px 6px;
   bottom: 22px;
 `;
 
@@ -64,13 +69,17 @@ const Slot = styled.div.attrs<SlotProps>(({ rotation }) => ({
   top: ${(SLOT_AREA_HEIGHT - SLOT_HEIGHT) / 2}px;
   height: ${SLOT_HEIGHT}px;
   width: ${SLOT_WIDTH}px;
-  border: 1px solid #cacaca;
+  border: 1px solid #14213d;
+  border-radius: 6px;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: #fff;
+  color: #14213d;
   position: absolute;
+  font-weight: bold;
+  font-family: "Balsamiq Sans", cursive;
 `;
 
 const Reel = ({ rotation, slots }: Props) => {

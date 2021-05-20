@@ -1,14 +1,29 @@
 import React from "react";
 import styled from "styled-components";
+import { SlotMachineColors } from "./colors";
 import { REEL_SLOTS } from "./constants";
 import Handle from "./Handle";
 
 import Reel from "./Reel";
 
-const ReelArea = styled.div`
-  background-color: #cec5b9;
-  padding: 16px;
+const MachineBody = styled.div`
+  background-color: #ef476f;
+  padding: 50px 30px 80px 30px;
+  border-radius: 24px 24px 8px 8px;
   display: flex;
+  flex-direction: column;
+`;
+
+const ReelArea = styled.div`
+  display: flex;
+`;
+
+const Title = styled.span`
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  font-size: 16pt;
+  color: #1d3557;
+  font-weight: bolder;
+  margin-left: 8px;
 `;
 
 interface State {
@@ -100,14 +115,17 @@ export default class SlotMachine extends React.Component<{}, State> {
     const { reelData } = this.state;
 
     return (
-      <>
-        <ReelArea>
-          {reelData.map(({ rotation, slots }, i) => (
-            <Reel key={i} rotation={rotation} slots={slots} />
-          ))}
-        </ReelArea>
-        <Handle onStart={this.startSlotMachine} disabled={this.isRunning} />
-      </>
+      <MachineBody>
+        <Title>Hackathonmatic 9000</Title>
+        <div style={{ display: "flex" }}>
+          <ReelArea>
+            {reelData.map(({ rotation, slots }, i) => (
+              <Reel key={i} rotation={rotation} slots={slots} />
+            ))}
+          </ReelArea>
+          <Handle onStart={this.startSlotMachine} disabled={this.isRunning} />
+        </div>
+      </MachineBody>
     );
   }
 }

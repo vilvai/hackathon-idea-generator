@@ -45,7 +45,7 @@ const HandleBar = styled.div.attrs<HandleBarProps>(({ position }) => {
   };
 })<HandleBarProps>`
   width: 0px;
-  border: ${HANDLE_WIDTH / 2}px solid #a07f5d;
+  border: ${HANDLE_WIDTH / 2}px solid #6d6875;
   border-radius: ${HANDLE_WIDTH / 2}px;
   position: absolute;
   left: 0px;
@@ -63,11 +63,7 @@ const HandleHead = styled.div.attrs<HandleHeadProps>(({ position }) => ({
   width: ${HANDLE_HEAD_SIZE}px;
   height: ${HANDLE_HEAD_SIZE}px;
   border-radius: ${HANDLE_HEAD_SIZE / 2}px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 0, 0, 1) 20%,
-    rgba(107, 0, 0, 1) 100%
-  );
+  background-color: #ffc8dd;
   position: absolute;
   left: -${(HANDLE_HEAD_SIZE - HANDLE_WIDTH) / 2}px;
 `;
