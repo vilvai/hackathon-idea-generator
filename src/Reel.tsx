@@ -15,7 +15,7 @@ const SLOT_WIDTH = 100;
 const REEL_SIZE = Math.round(SLOT_HEIGHT / 2 / Math.tan(Math.PI / REEL_SLOTS));
 
 const Container = styled.div`
-  margin: 0 8px;
+  padding: 0 8px;
   display: flex;
   flex-direction: column;
   width: ${SLOT_WIDTH}px;
@@ -23,6 +23,32 @@ const Container = styled.div`
   position: relative;
   transform-style: preserve-3d;
   perspective: 1800px;
+`;
+
+const Shadow = styled.div`
+  transform: translateZ(200px);
+  position: absolute;
+  left: 11px;
+  height: 54px;
+  width: 96px;
+`;
+
+const TopShadow = styled(Shadow)`
+  background: linear-gradient(
+    0deg,
+    rgba(60, 60, 60, 0) 0%,
+    rgba(60, 60, 60, 0.9) 100%
+  );
+  top: 24px;
+`;
+
+const BottomShadow = styled(Shadow)`
+  background: linear-gradient(
+    0deg,
+    rgba(60, 60, 60, 0.9) 0%,
+    rgba(60, 60, 60, 0) 100%
+  );
+  bottom: 22px;
 `;
 
 interface SlotProps {
@@ -72,6 +98,8 @@ const Reel = ({ rotation, slots }: Props) => {
           {slot}
         </Slot>
       ))}
+      <TopShadow />
+      <BottomShadow />
     </Container>
   );
 };
