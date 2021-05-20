@@ -10,7 +10,7 @@ const MachineBody = styled.div`
   background-color: #ef476f;
   padding: 24px 30px 80px 30px;
   border-radius: 24px 24px 8px 8px;
-  box-shadow: 0px 8px 12px 0px rgba(0,0,0,0.15);
+  box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
 `;
@@ -119,7 +119,15 @@ export default class SlotMachine extends React.Component<{}, State> {
     return (
       <MachineBody>
         <Title>Hackathonmatic 9000</Title>
-        <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+            marginLeft: "-30px",
+            backgroundColor: "rgb(194, 26, 83)",
+            padding: '10px 30px',
+            marginRight: "-30px",
+          }}
+        >
           <ReelArea>
             {reelData.map(({ rotation, slots }, i) => (
               <Reel key={i} rotation={rotation} slots={slots} />
