@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { SlotMachineColors } from "./colors";
 import { REEL_SLOTS } from "./constants";
 import Handle from "./Handle";
 
@@ -124,7 +123,7 @@ export default class SlotMachine extends React.Component<{}, State> {
             display: "flex",
             marginLeft: "-30px",
             backgroundColor: "rgb(194, 26, 83)",
-            padding: '10px 30px',
+            padding: "10px 30px",
             marginRight: "-30px",
           }}
         >

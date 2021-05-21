@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { SlotMachineColors } from "./colors";
 import { REEL_SLOTS } from "./constants";
 
 interface Props {
