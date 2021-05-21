@@ -12,7 +12,6 @@ const HANDLE_HEAD_SIZE = 30;
 const Container = styled.div`
   width: ${HANDLE_WIDTH}px;
   height: ${HANDLE_HEIGHT}px;
-  border-radius: ${HANDLE_WIDTH / 2}px;
   margin-left: 24px;
   position: relative;
 `;
@@ -53,13 +52,17 @@ const HandleBar = styled.div.attrs<HandleBarProps>(({ position }) => {
 
 interface HandleHeadProps {
   position: number;
+  isBeingPulled: boolean;
 }
 
-const HandleHead = styled.div.attrs<HandleHeadProps>(({ position }) => ({
-  style: {
-    top: position - HANDLE_HEAD_SIZE / 2,
-  },
-}))<HandleHeadProps>`
+const HandleHead = styled.div.attrs<HandleHeadProps>(
+  ({ position, isBeingPulled }) => ({
+    style: {
+      top: position - HANDLE_HEAD_SIZE / 2,
+      cursor: isBeingPulled ? "grabbing" : "grab",
+    },
+  })
+)<HandleHeadProps>`
   width: ${HANDLE_HEAD_SIZE}px;
   height: ${HANDLE_HEAD_SIZE}px;
   border-radius: ${HANDLE_HEAD_SIZE / 2}px;
@@ -75,6 +78,7 @@ interface Props {
 
 const Handle = ({ onStart, disabled }: Props) => {
   const [position, _setPosition] = React.useState(0);
+  const [isBeingPulled, setIsBeingPulled] = React.useState(false);
   const positionRef = React.useRef(position);
   const setPosition = (value: number) => {
     positionRef.current = value;
@@ -91,10 +95,12 @@ const Handle = ({ onStart, disabled }: Props) => {
 
   const handleMouseDown = () => {
     if (disabled) return;
+    setIsBeingPulled(true);
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", () => {
       if (positionRef.current >= HANDLE_HEIGHT) onStart();
       setPosition(0);
+      setIsBeingPulled(false);
       document.removeEventListener("mousemove", handleMouseMove);
     });
   };
@@ -109,7 +115,11 @@ const Handle = ({ onStart, disabled }: Props) => {
     <Container ref={containerRef}>
       <HandleHole />
       <HandleBar position={position} />
-      <HandleHead position={position} onMouseDown={handleMouseDown} />
+      <HandleHead
+        isBeingPulled={isBeingPulled}
+        position={position}
+        onMouseDown={handleMouseDown}
+      />
     </Container>
   );
 };
