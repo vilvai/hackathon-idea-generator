@@ -33,13 +33,13 @@ interface State {
 
 const ideas: string[][] = [
   [
-    "A scalable",
-    "A zero-down-time",
-    "A simple",
-    "A brute-force",
-    "A randomized",
+    "Scalable",
+    "Zero-down-time",
+    "Simple",
+    "Brute-force",
+    "Randomized",
     "Smart",
-    "A responsive",
+    "Responsive",
   ],
   [
     "todo",
@@ -48,15 +48,18 @@ const ideas: string[][] = [
     "retail",
     "calculator",
     "storage",
-    "automated ads",
+    "advertisement",
+    "hello world",
   ],
-  ["app", "generator", "game", "machine learning model"],
+  ["app", "generator", "game", "machine learning model", "rating system"],
   [
     "using react",
     "with Go language",
     "that uses ffmpeg",
     "that's integrated to warren",
     "connected to Facebook",
+    "using bluetooth",
+    "using augmented reality",
   ],
 ];
 
